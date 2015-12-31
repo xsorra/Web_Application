@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hwk13: Registrar Intranet</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            #bt1, #bt2, #bt3, #bt4 {background-color: lightblue}
+        </style>
+        <script type="text/javascript">
+            //the function parameter num identifies which form is active
+            function checkform(num)
+            {
+                //form objects validation
+                idOK = false;
+                lnameOK = false;
+                fnameOK = false;
+                gpaOK = false;
+                
+                //initializing the inputs
+                var inputID = 0;
+                var inputLN = "", inputFN="";
+                var inputGPA = 0.;
+                
+                //reading the inputs
+                if (num ==1)        //addForm
+                {
+                    inputID = document.addForm.idTxtBx.value;
+                    inputLN = document.addForm.lnameTxtBx.value;
+                    inputFN = document.addForm.fnameTxtBx.value;
+                    inputGPA = document.addForm.gpaTxtBx.value;
+                }
+                else
+                if (num ==2)        //searchForm
+                {
+                    inputID = document.searchForm.idTxtBx.value;
+                }
+                else
+                if (num ==3)        //updateForm
+                {
+                    inputID = document.updateForm.idTxtBx.value;
+                    inputGPA = document.updateForm.gpaTxtBx.value;
+                }
+                else
+                if (num ==4)        //deleteForm
+                {
+                    inputID = document.deleteForm.idTxtBx.value;
+                }
+                
+                //for all forms
+                //validating ID: not blank, not char (only digits), size 3
+                if (inputID != "" && !isNaN(inputID) && inputID.length == 3) idOK = true;
+                               
+                //for each entire form
+                if (num ==1)
+                {
+                    //validating last and firstname: only characters and not blank
+                    if (inputLN != "" && isNaN(inputLN)) lnameOK = true;
+                    if (inputFN != "" && isNaN(inputFN)) fnameOK = true;
+                    
+                    //validating GPA: not blank, only numeric, and between 0.0 and 4.0 
+                    if (inputGPA != "" && !isNaN(inputGPA) && (inputGPA >=0.0 && inputGPA<4.0)) gpaOK = true;
+                    
+                    formOK = (idOK) && (lnameOK) && (fnameOK) && (gpaOK);
+                }
+                else
+                if (num ==2)
+                {
+                    formOK = (idOK);
+                }
+                    
+                else
+                if (num ==3)
+                {
+                    //validating GPA: only numeric and not blank
+                    if (inputGPA != "" && !isNaN(inputGPA) && (inputGPA >=0.0 && inputGPA<4.0)) gpaOK = true;
+                    formOK = (idOK) && (gpaOK);
+                }
+                else
+                if (num ==4)
+                {
+                    formOK = (idOK);
+                }
+                
+                if (formOK == true) return true;
+                else
+                if (formOK == false)
+                {
+                    alert ("Please fill out the required fields correctly");
+                    return false;
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <h2>Hwk13: Registrar Intranet</h2>
+        
+        <fieldset style="width:500px">
+            <legend><b>Add Student</b></legend>
+            <form name="addForm"  action="Hwk13JSP.jsp" onsubmit="return checkform(1)">
+                ID: <input type="text" name="idTxtBx" size="3" />
+                <br/>
+                LastName: <input type="text" name="lnameTxtBx" size="50"/>
+                <br/>
+                FirstName: <input  type="text" name="fnameTxtBx" size="50"/>
+                <br/>
+                GPA: <input  type="text" name="gpaTxtBx" size="10"/>
+                <br/>
+                <input id="bt1"  type="submit" name="submitB" value="Add"/>
+            </form>
+        </fieldset>
+        
+        <br/>
+        
+        <fieldset style="width:150px">
+            <legend><b>Search Student</b></legend>
+            <form name="searchForm"  action="Hwk13JSP.jsp" onsubmit="return checkform(2)">
+                ID: <input type="text" name="idTxtBx" size="3" />
+                <br/>
+                <input id="bt2"  type="submit" name="submitB" value="Search"/>
+            </form>
+        </fieldset>
+        
+        <br/>
+        
+        <fieldset style="width:180px">
+            <legend><b>Update Student's GPA</b></legend>
+            <form name="updateForm" action="Hwk13JSP.jsp" onsubmit="return checkform(3)">
+                ID: <input  type="text" name="idTxtBx" size="3" />
+                &nbsp;&nbsp;
+                GPA: <input type="text" name="gpaTxtBx" size="5"/>
+                <br/>
+                <input id="bt3" type="submit" name="submitB" value="Update"/>
+            </form>
+        </fieldset>
+        
+        <br/>
+        
+        <fieldset style="width:150px">
+            <legend><b>Delete Student</b></legend>
+            <form name="deleteForm"  action="Hwk13JSP.jsp" onsubmit="return checkform(4)">
+                ID: <input type="text" name="idTxtBx" size="3" />
+                <br/>
+                <input id="bt4"  type="submit" name="submitB" value="Delete"/>
+            </form>
+        </fieldset>
+    
+    </body>
+</html>
